@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f7f7f7;
+        }
+
+        .receita-card {
+            margin-top: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .receita-card img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container bg-warning">
+        <div class="row">
+            <div class="col-md-4" id="coluna1"></div>
+            <div class="col-md-4" id="coluna2"></div>
+            <div class="col-md-4" id="coluna3"></div>
+        </div>
+    </div>
+    <script>
+    
+        const receitas = [
+            {
+                "titulo": "Bolo de cenoura",
+                "imagem": "https://www.receiteria.com.br/wp-content/uploads/bolo-de-cenoura-de-liquidificador-09-730x548.jpeg.webp",
+                "preparo": "Reúna todos os ingredientes da massa do seu bolo de cenoura de liquidificador, Em um recipiente, misture a farinha (peneirada), o sal e fermento. Reserve, No liquidificador, coloque as cenouras, o óleo, os ovos e o açúcar. Bata por cerca de 5 minutos e despeje a mistura em um recipiente grande; Assim que ficar homogêneo, transfira para uma forma, untada e enfarinhada, e leve ao forno preaquecido a 180ºC por cerca de 45 a 50 minutos;",
+                "ingredientes": ["3 cenouras médias","4 ovos","1 xícara de chá de óleo de milho",
+                "1 e 1/2 xícara de chá de açúcar","2 xícaras de chá de farinha de trigo",
+                "1 colher de sopa de fermento","1 pitada de sal","Manteiga e farinha de trigo para untar"]
+            },
+            {
+                "titulo": "Nhoque de Abóbora",
+                "imagem": "https://www.receiteria.com.br/wp-content/uploads/nhoque-de-abobora-e-queijo-curado-730x730.jpg.webp",
+                "preparo": "Abra um pedaço de papel alumínio e coloque os cubos de abóbora e a cabeça de alho com a parte de cima cortada. Regue com azeite, tempere com sal e pimenta. Embrulhe e asse em forno preaquecido a 220°C por aproximadamente 30 minutos. Retire do forno e remova as cascas dos dentes de alho. Amasse e transfira para uma tigela com a abóbora. Amasse também a abóbora e deixe esfriar. Adicione a farinha de aveia, 1 colher de sopa de azeite, noz-moscada e o queijo. Misture, coloque o amido de milho e misture novamente. Acerte o sal se necessário. Ferva a água em uma panela. Enquanto isso, transfira a massa de abóbora para um saco de confeitar. Modele os nhoques diretamente sobre a água fervente, com o auxílio de uma tesoura. Cozinhe até que subam para a superfície. Escorra e sirva com queijo parmesão ralado e um molho da sua preferência. Bom apetite.",
+                "ingredientes": ["400 gramas de abóbora cabotiá em cubos","1 cabeça de alho","Azeite a gosto",
+                "Sal a gosto","Pimenta-do-reino a gosto","1 xícara de chá de farinha de aveia","Noz-moscada a gosto",
+                "50 gramas de queijo curado de sua preferência","2 colheres de sopa de amido de milho",
+                "50 gramas de queijo ralado"]
+            },
+            {
+                "titulo": "Sopa de legumes",
+                "imagem": "https://p2.trrsf.com/image/fget/cf/1200/900/middle/images.terra.com/2023/03/28/1673865110-sopa-de-legumes.jpg",
+                "preparo": "Na panela de pressão, coloque 1 fio de azeite e esquente. Adicione 1 cebola picada, 1 tomate picado e refogue. Acrescente 2 tabletes de caldo de carne e mexa bem no refogado, até derreter. Junte 4 batatas em cubos, 2 cenouras picadas, 1 beterraba em cubos e mexa bem. Coloque 1 litro de água e feche a panela de pressão. Após pegar pressão, deixe cozinhar por 20 minutos. Passado este tempo, retire totalmente a pressão cuidadosamente e transfira a sopa para um liquidificador. Bata a sopa de legumes no liquidificador até formar um creme. Sua sopa de legumes está pronta para servir.",
+                "ingredientes": ["2 abóboras","2 couves","2 alhos","2 pepinos","2 tomates","2 batatas"]
+            }
+        ];
+
+        
+        function getListaIngredientes(ingredientes) {
+            return "<ul>" + ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join("") + "</ul>";
+        }
+
+        
+        function getCard(receita) {
+            return `
+                <div class="card receita-card">
+                    <img class="card-img-top" src="${receita.imagem}" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita.ingredientes)}
+                            <hr>
+                            ${receita.preparo}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        
+        function preencheColunas() {
+            const coluna1 = document.getElementById("coluna1");
+            const coluna2 = document.getElementById("coluna2");
+            const coluna3 = document.getElementById("coluna3");
+
+            for (let i = 0; i < receitas.length; i++) {
+                const card = getCard(receitas[i]);
+                if (i % 3 === 0) {
+                    coluna1.innerHTML += card;
+                } else if (i % 3 === 1) {
+                    coluna2.innerHTML += card;
+                } else {
+                    coluna3.innerHTML += card;
+                }
+            }
+        }
+
+        
+        window.onload = preencheColunas;
+    </script>
+</body>
+</html>
